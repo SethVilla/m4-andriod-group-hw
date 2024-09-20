@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Two Weeks of Movies</string>
+    <string name="alien_romulus">Romulus is a 2024 science fiction horror film that follows a group of young space colonists who encounter terrifying creatures while scavenging a derelict space station. The movie is set between the events of Alien (1979) and Aliens (1986).</string>
+    <string name="alien_covenant">Alien: Covenant is a 2017 science fiction horror film about a colony ship crew that discovers a dangerous world while on their way to colonize a remote planet</string>
+    <string name="alien_prometheus">Set in the late 21st century, the film centers on the crew of the spaceship Prometheus as it follows a star map discovered among the artifacts of several ancient Earth cultures.</string>
+    <string name="blade_runner">Blade Runner is a 1982 film about a former police officer who is forced to hunt down and kill four replicants who have escaped from space and returned to Earth</string>
+    <string name="blade_runner_2049">Blade Runner 2049 is a 2017 science fiction film that tells the story of a Los Angeles Police Department (LAPD) blade runner who discovers a secret that could lead to war between humans and replicants</string>
+    <string name="matrix">The Matrix is a 1999 science fiction action film about a computer hacker who discovers that his life is a lie</string>
+    <string name="kill_bill">Kill Bill is a 2003 martial arts film written and directed by Quentin Tarantino about a former assassin who seeks revenge on her former employer and the group that tried to kill her</string>
+    <string name="kill_bill_2">Kill Bill: Volume 2 is a 2004 American martial arts film that continues the story of The Bride\'s quest for revenge against the Deadly Viper Assassination Squad. The film was written and directed by Quentin Tarantino and stars Uma Thurman as The Bride.</string>
+    <string name="deadpool"> comedy film starring Ryan Reynolds as Deadpool and Hugh Jackman as Wolverine about Deadpool and Wolverine teaming up to save the multiverse from a supervillain</string>
+    <string name="biutiful">Biutiful is a 2010 drama and romance film about a man who is dying of cancer and trying to leave the world on his own terms. The movie stars Javier Bardem as Uxbal, a single father and career criminal who lives in Barcelona\'s underground world.</string>
+    <string name="cowboy_bebop">Cowboy Bebop: The Movie is an action-packed, sci-fi adventure film based on the popular TV series Cowboy Bebop. The movie follows the crew of the spaceship Bebop as they attempt to capture a terrorist who is responsible for releasing a deadly virus on Mars</string>
+    <string name="royal_tenenbaums">The film follows the story of Royal Tenenbaum (Gene Hackman), the father of three gifted children, and his attempts to reconnect with them after leaving them as teenagers. Royal returns home after running out of money and being evicted from a hotel, falsely claiming to have a terminal illness</string>
+    <string name="wes_anderson_hotel">The Grand Budapest Hotel is a 2014 movie about a legendary concierge and his young protégé at a European hotel between the world wars</string>
+    <string name="oldboy">Oldboy is a 2003 South Korean action-thriller film about a man who is kidnapped and held captive for 15 years, and then seeks revenge on his captor. The film is based on the Japanese manga of the same name.</string>
+</resources>
