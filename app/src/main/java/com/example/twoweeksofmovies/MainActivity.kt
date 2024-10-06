@@ -6,25 +6,41 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresExtension
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+//import androidx.compose.foundation.layout.FlowColumnScopeInstance.weight
+//import androidx.compose.foundation.layout.FlowRowScopeInstance.weight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -90,7 +106,19 @@ fun MovieCard(movieRec: MovieRec, modifier: Modifier = Modifier) {
         modifier = modifier,
         shape = MaterialTheme.shapes.medium
     ) {
-        Column {
+        // sls01
+        var expanded by remember { mutableStateOf(false) }
+
+        Column (
+            // sls01
+            modifier = Modifier
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioNoBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                )
+        ) {
             Box {
                 Image(
                     painter = painterResource(id = movieRec.image),
@@ -100,36 +128,66 @@ fun MovieCard(movieRec: MovieRec, modifier: Modifier = Modifier) {
                         .fillMaxSize()
                         .align(Alignment.Center)
                 )
+
             }
+            // sls01
+            Spacer(modifier = Modifier.weight(1f))
+            MovieCardButton(
+                modifier = Modifier.align(Alignment.End),
+                expanded = expanded,
+                onClick = { expanded = !expanded }
+            )
+            // sls01
+            if (expanded) {
+                Column(
+                ) {
+                    Text(
+                        text = stringResource(id = movieRec.title),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            top = 16.dp,
+                            end = 16.dp,
+                            bottom = 8.dp
+                        ).fillMaxWidth()
 
-            Column {
-                Text(
-                    text = stringResource(id = movieRec.title),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(
-                        start = 16.dp,
-                        top = 16.dp,
-                        end = 16.dp,
-                        bottom = 8.dp
-                    ).fillMaxWidth()
-
-                )
-                Text(
-                    text = stringResource(id = movieRec.description),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(
-                        start = 16.dp,
-                        top = 16.dp,
-                        end = 16.dp,
-                        bottom = 8.dp
                     )
-                )
+                    Text(
+                        text = stringResource(id = movieRec.description),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            top = 16.dp,
+                            end = 16.dp,
+                            bottom = 8.dp
+                        )
+                    )
+                }
             }
         }
+    }
+}
+
+// sls01
+@Composable
+private fun MovieCardButton(
+    expanded: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier
+    ) {
+        Icon(
+            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+            contentDescription = stringResource(R.string.expand_button_content_description),
+            tint = MaterialTheme.colorScheme.secondary
+        )
     }
 }
 
@@ -152,17 +210,18 @@ fun TopAppBar(modifier: Modifier = Modifier) {
     )
 }
 
+@RequiresExtension(extension = SdkExtensions.AD_SERVICES, version = 4)
 @Preview(showBackground = true)
 @Composable
 fun MovieAppPreview() {
     TwoWeeksOfMoviesTheme {
-        val movie = MovieRec(R.string.blade_runner_2049_title, R.string.blade_runner_2049, R.drawable.blade_runner_2049)
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            MovieCard(movieRec = movie)
+//        val movie = MovieRec(R.string.blade_runner_2049_title, R.string.blade_runner_2049, R.drawable.blade_runner_2049)
+//        Column(
+//            modifier = Modifier.fillMaxSize(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            MovieCard(movieRec = movie)
+        TwoWeeksOfMoviesApp()
         }
     }
-}

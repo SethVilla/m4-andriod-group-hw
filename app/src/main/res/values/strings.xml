@@ -28,4 +28,5 @@
     <string name="wes_anderson_hotel_title">The Grand Budapest Hotel</string>
     <string name="oldboy">Oldboy is a 2003 South Korean action-thriller film about a man who is kidnapped and held captive for 15 years, and then seeks revenge on his captor. The film is based on the Japanese manga of the same name.</string>
     <string name="oldboy_title">Oldboy</string>
+    <string name="expand_button_content_description">See more or less information about a movie.</string>
 </resources>
