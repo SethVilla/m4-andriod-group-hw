@@ -89,7 +89,8 @@ fun TwoWeeksOfMoviesApp(
 @RequiresExtension(extension = SdkExtensions.AD_SERVICES, version = 4)
 @Composable
 fun MoviesGrid(
-    movies: List<MovieRec>, // sls01
+    //sls01
+    movies: List<MovieRec>,
     modifier: Modifier = Modifier) {
     //sls01
     val expandedStatesMap = remember { mutableStateMapOf<MovieRec,Boolean>().apply {
