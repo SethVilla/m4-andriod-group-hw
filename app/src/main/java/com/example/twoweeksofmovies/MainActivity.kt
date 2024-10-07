@@ -13,7 +13,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 //import androidx.compose.foundation.layout.FlowColumnScopeInstance.weight
 //import androidx.compose.foundation.layout.FlowRowScopeInstance.weight
 import androidx.compose.foundation.layout.Spacer
@@ -37,10 +36,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -72,12 +69,16 @@ class MainActivity : ComponentActivity() {
 
 @RequiresExtension(extension = SdkExtensions.AD_SERVICES, version = 4)
 @Composable
-fun TwoWeeksOfMoviesApp() {
+fun TwoWeeksOfMoviesApp(
+    // sls-1
+    movies : List<MovieRec> = MovieSource.movies
+) {
     Scaffold ( modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar()
         }) { innerPadding ->
         MoviesGrid(
+            movies, // sls01
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(8.dp)
@@ -87,27 +88,49 @@ fun TwoWeeksOfMoviesApp() {
 
 @RequiresExtension(extension = SdkExtensions.AD_SERVICES, version = 4)
 @Composable
-fun MoviesGrid(modifier: Modifier = Modifier) {
+fun MoviesGrid(
+    movies: List<MovieRec>, // sls01
+    modifier: Modifier = Modifier) {
+    //sls01
+    val expandedStatesMap = remember { mutableStateMapOf<MovieRec,Boolean>().apply {
+        movies.forEach { movie -> this[movie] = false }
+    } }
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(1),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
     ) {
-        items(MovieSource.movies) { movie ->
-            MovieCard(movie)
+        //sls01
+//        items(MovieSource.movies) { movie ->
+        items(movies) { movie ->
+            var isExpanded = expandedStatesMap[movie] ?: false
+            MovieCard(
+                movieRec = movie,
+                onIconClick = {
+                    expandedStatesMap[movie] = !(expandedStatesMap[movie] ?: false)
+                },
+                isExpanded = isExpanded
+            )
         }
     }
 }
 
 @Composable
-fun MovieCard(movieRec: MovieRec, modifier: Modifier = Modifier) {
+fun MovieCard(
+    // sls01
+    isExpanded: Boolean = false,
+    onIconClick: () -> Unit,
+    movieRec: MovieRec,
+    modifier: Modifier = Modifier
+) {
     Card(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium
     ) {
         // sls01
-        var expanded by remember { mutableStateOf(false) }
+//        var expanded by remember { mutableStateOf(false) }
 
         Column (
             // sls01
@@ -134,11 +157,12 @@ fun MovieCard(movieRec: MovieRec, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.weight(1f))
             MovieCardButton(
                 modifier = Modifier.align(Alignment.End),
-                expanded = expanded,
-                onClick = { expanded = !expanded }
+                isExpanded = isExpanded,
+                onIconClick = onIconClick //{ expanded = !expanded }
             )
             // sls01
-            if (expanded) {
+//            if (expanded) {
+            if(isExpanded){
                 Column(
                 ) {
                     Text(
@@ -175,16 +199,16 @@ fun MovieCard(movieRec: MovieRec, modifier: Modifier = Modifier) {
 // sls01
 @Composable
 private fun MovieCardButton(
-    expanded: Boolean,
-    onClick: () -> Unit,
+    isExpanded: Boolean,
+    onIconClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     IconButton(
-        onClick = onClick,
+        onClick = onIconClick,
         modifier = modifier
     ) {
         Icon(
-            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+            imageVector = if (isExpanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
             contentDescription = stringResource(R.string.expand_button_content_description),
             tint = MaterialTheme.colorScheme.secondary
         )
