@@ -13,6 +13,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 //import androidx.compose.foundation.layout.FlowColumnScopeInstance.weight
 //import androidx.compose.foundation.layout.FlowRowScopeInstance.weight
 import androidx.compose.foundation.layout.Spacer
@@ -155,44 +156,57 @@ fun MovieCard(
 
             }
             // sls01
-            Spacer(modifier = Modifier.weight(1f))
-            MovieCardButton(
-                modifier = Modifier.align(Alignment.End),
-                isExpanded = isExpanded,
-                onIconClick = onIconClick //{ expanded = !expanded }
-            )
+//            Spacer(modifier = Modifier.weight(1f))
+//            MovieCardButton(
+//                modifier = Modifier.align(Alignment.End),
+//                isExpanded = isExpanded,
+//                onIconClick = onIconClick //{ expanded = !expanded }
+//            )
             // sls01
 //            if (expanded) {
-            if(isExpanded){
+//            if(isExpanded){
                 Column(
                 ) {
-                    Text(
-                        text = stringResource(id = movieRec.title),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(
-                            start = 16.dp,
-                            top = 16.dp,
-                            end = 16.dp,
-                            bottom = 8.dp
-                        ).fillMaxWidth()
 
-                    )
-                    Text(
-                        text = stringResource(id = movieRec.description),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(
-                            start = 16.dp,
-                            top = 16.dp,
-                            end = 16.dp,
-                            bottom = 8.dp
+                    Row {
+                        Text(
+                            text = stringResource(id = movieRec.title),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(
+                                    start = 16.dp,
+                                    top = 16.dp,
+                                    end = 16.dp,
+                                    bottom = 8.dp
+                                )
+//                                .fillMaxWidth()
                         )
-                    )
+                        // sls01
+                        Spacer(modifier = Modifier.weight(1f))
+                        MovieCardButton(
+//                            modifier = Modifier.align(Alignment.End),
+                            isExpanded = isExpanded,
+                            onIconClick = onIconClick //{ expanded = !expanded }
+                        )
+                    }
+                    if(isExpanded){
+                        Text(
+                            text = stringResource(id = movieRec.description),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(
+                                start = 16.dp,
+                                top = 16.dp,
+                                end = 16.dp,
+                                bottom = 8.dp
+                            )
+                        )
+                    }
                 }
-            }
+//            } // if (isExpanded)
         }
     }
 }
